@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item</title>
+    <link rel="stylesheet" href="assest/css/normalize.css">
+    <link rel="stylesheet" href="CSS/Item.css">
+    <link rel="stylesheet" href="assest/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<ul class="nav justify-content-end">
+
+    <img id="sitelogo" src="assest/img/shopping-cart.png" alt="siteLogo">
+    <h3 id="logohead">Cyber Store</h3>
+    <h4 id="logosub">Online Shopping Site</h4>
+
+    <li class="nav-item">
+        <img src="assest/img/home_30px.png" alt="homeicon">
+        <a class="nav-link active" aria-current="page" href="Main.html">Home</a>
+    </li>
+    <li class="nav-item">
+        <img src="assest/img/people_24px.png" alt="customericon">
+        <a class="nav-link" href="Customer.html">Customer</a>
+    </li>
+    <li class="nav-item">
+        <img src="assest/img/open_delivered_box_50px.png" alt="itemicon">
+        <a class="nav-link" href="Item.html">Item</a>
+    </li>
+    <li class="nav-item">
+        <img src="assest/img/buy_24px.png" alt="ordericon">
+        <a class="nav-link" href="Order.html">Order</a>
+    </li>
+</ul>
+
+<section>
+
+    <div class="maindiv">
+        <h2 id="divtitle">Item</h2>
+        <hr>
+        <div class="formdiv">
+            <form class="row g-3 needs-validation" novalidate>
+                <div class="col-md-4">
+                    <label for="item-id" class="form-label">Item ID</label>
+                    <input type="text" class="form-control" id="item-id" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="item-name" class="form-label">Item Name</label>
+                    <input type="text" class="form-control" id="item-name" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="item-price" class="form-label">Item Price</label>
+                    <input type="text" class="form-control" id="item-price" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="item-qty" class="form-label">Item Qty On Hand</label>
+                    <input type="text" class="form-control" id="item-qty" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <button type="button" class="btn btn-success">Submit</button>
+                    <button type="button" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-warning">Reset</button>
+                </div>
+            </form>
+        </div>
+        <div class="tablediv">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="search" placeholder="Search ID" aria-describedby="button-addon2">
+                <button class="btn btn-success" type="button" id="button-addon2">Search</button>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Item_ID</th>
+                    <th scope="col">Item_Name</th>
+                    <th scope="col">Item_Price</th>
+                    <th scope="col">Item_Qty</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                <tr>
+                    <th></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+<script src="assest/bootstrap/js/bootstrap.min.js"></script>
+<script src="assest/lib/jquery.min.js"></script>
+
+<script>
+    //submit
+    $("button[type='button']").eq(0).on("click",()=>{
+        let i_id = $("#item-id").val();
+        let i_name = $("#item-name").val();
+        let i_price = $("#item-price").val();
+        let i_qty = $("#item-qty").val();
+
+        let newRow = $("<tr>").append(
+            $("<td>").text(i_id),
+            $("<td>").text(i_name),
+            $("<td>").text(i_price),
+            $("<td>").text(i_qty),
+        );
+
+        // Append the new row to the table body
+        $(".table tbody").append(newRow);
+
+        // Clear input fields after adding the data
+        $("#item-id").val("");
+        $("#item-name").val("");
+        $("#item-price").val("");
+        $("#item-qty").val("");
+
+        console.log(`item_Id: ${i_id}\n item_Name: ${i_name}\n item_price: ${i_price}\n item_qty: ${i_qty}\n `);
+
+        $('#item-id').val('');
+        $('#item-name').val('');
+        $('#item-price').val('');
+        $('#item-qty').val('');
+    })
+
+    // delication
+    $("tbody").on("click","tr",function (){
+        // console.log("hello");
+        let data_col = $(this).find("td");
+        console.log(data_col);
+
+        data_col.each(function (){
+            console.log($(this).text());
+
+
+        })
+    })
+
+    $("tbody").on("click", "tr", function () {
+
+        row_index = $(this).index();
+        let item_id = $(this).find("td:eq(0)").text();
+        let item_name = $(this).find("td:eq(1)").text();
+        let item_price = $(this).find("td:eq(2)").text();
+        let item_qty = $(this).find("td:eq(3)").text();
+
+        $('#item-id').val(item_id);
+        $('#item-name').val(item_name);
+        $('#item-price').val(item_price);
+        $('#item-qty').val(item_qty);
+    });
+
+    //update
+    $("button[type='button']").eq(1).on("click",()=>{
+        let i_id = $("#item-id").val();
+        let i_name = $("#item-name").val();
+        let i_price = $("#item-price").val();
+        let i_qty = $("#item-qty").val();
+
+        let record = `<td class="Item ID:">${i_id}</td><td class="Item Name:">${i_name}</td> <td class="Item Price:">${i_price}</td><td class="Item Qty:">${i_qty}`;
+
+        $("tbody>tr").eq(row_index).html(record)
+
+        $('#item-id').val('');
+        $('#item-name').val('');
+        $('#item-price').val('');
+        $('#item-qty').val('');
+    })
+
+    // delete
+    $("button[type='button']").eq(2).on("click",()=> {
+        $("tbody>tr").eq(row_index).remove();
+
+        $('#item-id').val('');
+        $('#item-name').val('');
+        $('#item-price').val('');
+        $('#item-qty').val('');
+    })
+
+    // reset
+    $("button[type='button']").eq(3).on("click",()=>{
+        $('#item-id').val('');
+        $('#item-name').val('');
+        $('#item-price').val('');
+        $('#item-qty').val('');
+    })
+//search///////////////////////////////////////////////////////////////////////////////////////////
+//     $("button[type='button']").eq(4).on("click",()=> {
+//         const searchInput = document.getElementById('search');
+//         const searchButton = document.getElementById('button-addon2');
+//         const resultsContainer = document.getElementById('tbody');
+//
+//         // Define a function to perform the search
+//         function performSearch() {
+//             // Get the search term from the input
+//             const searchTerm = searchInput.value.toLowerCase();
+//
+//             // Clear previous search results
+//             resultsContainer.innerHTML = '';
+//
+//             // Perform the search (replace this with your search logic)
+//             // For demonstration, we'll search in an array of items
+//             const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
+//             const matchingItems = items.filter(item => item.toLowerCase().includes(searchTerm));
+//
+//             // Display the matching results
+//             matchingItems.forEach(item => {
+//                 const listItem = document.createElement('tr');
+//                 listItem.textContent = item;
+//                 resultsContainer.appendChild(listItem);
+//             });
+//         }
+//
+//         searchButton.addEventListener('click', performSearch);
+//
+//         searchInput.addEventListener('keypress', function (event) {
+//             if (event.key === 'Enter') {
+//                 performSearch();
+//             }
+//         });
+//     })
+</script>
+</body>
+</html>
